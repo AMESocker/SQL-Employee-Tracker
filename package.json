@@ -3,6 +3,8 @@
     "version":"0.0.1",
     "main":"index.js",
     "dependencies": {
-        "inquirer": "^8.2.5"
+        "inquirer": "^8.2.5",
+        "mysql2":"2.3.3",
+        "console.table": "0.10.0"
     }
 }
