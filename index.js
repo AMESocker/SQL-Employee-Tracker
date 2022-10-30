@@ -1,5 +1,11 @@
 const inquirer = require('inquirer');
-
+console.log(`
+███████ ███    ███ ██████  ██       ██████  ██    ██ ███████ ███████     ████████ ██████   █████   ██████ ██   ██ ███████ ██████  
+██      ████  ████ ██   ██ ██      ██    ██  ██  ██  ██      ██             ██    ██   ██ ██   ██ ██      ██  ██  ██      ██   ██ 
+█████   ██ ████ ██ ██████  ██      ██    ██   ████   █████   █████          ██    ██████  ███████ ██      █████   █████   ██████  
+██      ██  ██  ██ ██      ██      ██    ██    ██    ██      ██             ██    ██   ██ ██   ██ ██      ██  ██  ██      ██   ██ 
+███████ ██      ██ ██      ███████  ██████     ██    ███████ ███████        ██    ██   ██ ██   ██  ██████ ██   ██ ███████ ██   ██ 
+`)
 mainMenu()
 function mainMenu(){
     inquirer
@@ -13,25 +19,33 @@ function mainMenu(){
     ])
     .then((data) => {
         if (data.menu === 'View all departments') {
-            console.log('View all departments');
+            console.log('No. Try not. Do... or do not. There is no try.');
         } else if (data.menu === 'View all roles') {
-            console.log('View all roles');
+            console.log('I love you. - I know.');
         } else if (data.menu === 'View all employees') {
-            console.log('View all employees');
+            console.log('Never tell me the odds.');
         } else if (data.menu === 'Add a department') {
-            console.log('Add a department');
+            console.log("They'd be crazy to follow us, wouldn't they?");
             addDepartment();
         } else if (data.menu === 'Add a role') {
             console.log('Add a role');
             addRole();
         } else if (data.menu === 'Add an employee') {
-            console.log('Add an employee');
+            console.log('You said you wanted to be around when I made a mistake, well, this could be it, sweetheart.');
             addEmployee();
         } else if (data.menu === 'Update an employee role') {
-            console.log('Update an employee role');
-            updateEmployee();
+            console.log('Would it help if I got out and pushed?');
+            updateEmployeeRole();
         } else if (data.menu === 'Exit') {
-            console.log('Exit');
+            console.log(`
+
+░██████╗░░█████╗░░█████╗░██████╗░  ██████╗░██╗░░░██╗███████╗
+██╔════╝░██╔══██╗██╔══██╗██╔══██╗  ██╔══██╗╚██╗░██╔╝██╔════╝
+██║░░██╗░██║░░██║██║░░██║██║░░██║  ██████╦╝░╚████╔╝░█████╗░░
+██║░░╚██╗██║░░██║██║░░██║██║░░██║  ██╔══██╗░░╚██╔╝░░██╔══╝░░
+╚██████╔╝╚█████╔╝╚█████╔╝██████╔╝  ██████╦╝░░░██║░░░███████╗
+░╚═════╝░░╚════╝░░╚════╝░╚═════╝░  ╚═════╝░░░░╚═╝░░░╚══════╝
+`);
         }
     });
 };
@@ -50,8 +64,16 @@ function addDepartment(){
             name: 'anotherDept'
         }
     ])
-    .then((dataDept) => {});
+    .then((dataDept) => {
+        if (dataDept.anotherDept) {
+        console.log('another Dept');
+        addDepartment();
+        } else if (!dataDept.anotherDept){
+            mainMenu();
+        }
+    });
 };
+
 function addRole(){
     inquirer
     .prompt([
@@ -69,33 +91,54 @@ function addRole(){
             type:'input',
             message:'Please enter a department:',
             name:'roleDepartment'
+        },
+        {
+            type:'confirm',
+            message:'Would you like to add another role?',
+            name: 'anotherRole'
         }
     ])
-    .then((dataDept) => {});
+    .then((dataRole) => {
+        if (dataRole.anotherRole){
+            console.log('Another Role')
+        }
+    });
 };
 function addEmployee(){
     inquirer
     .prompt([
         {
             type:'input',
-            message:'',
-            name:''
+            message:'Please enter first name:',
+            name:'empFirstName'
         },
         {
             type:'input',
-            message:'',
-            name:''
+            message:'Please enter last name:',
+            name:'empLastName'
         },
         {
             type:'input',
-            message:'',
-            name:''
+            message:'Please enter role:',
+            name:'empRole'
         },
         {
             type:'input',
-            message:'',
-            name:''
+            message:'Please enter manager:',
+            name:'empManager'
         },
+        {
+            type: 'confirm',
+            message:'Would you like to add another employee?',
+            name: 'anotherEmp'
+        }
     ])
 };
-function updateEmployee(){};
+function updateEmployeeRole(){
+    inquirer
+    .prompt([
+        {
+
+        }
+    ])
+};
