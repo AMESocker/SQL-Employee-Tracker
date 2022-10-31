@@ -4,8 +4,8 @@ CREATE DATABASE star_wars_V_db;
 USE star_wars_V_db;
 
 CREATE TABLE departments (
+    dept_name VARCHAR(30),
     dept_id INT,
-    dept_name VARCHAR(30)
 );
 
 CREATE TABLE roles (

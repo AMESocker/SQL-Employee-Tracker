@@ -1,4 +1,4 @@
-const inquirer = require('inquirer');
+//----ascii art----
 console.log(`
 ███████ ███    ███ ██████  ██       ██████  ██    ██ ███████ ███████     ████████ ██████   █████   ██████ ██   ██ ███████ ██████  
 ██      ████  ████ ██   ██ ██      ██    ██  ██  ██  ██      ██             ██    ██   ██ ██   ██ ██      ██  ██  ██      ██   ██ 
@@ -6,6 +6,32 @@ console.log(`
 ██      ██  ██  ██ ██      ██      ██    ██    ██    ██      ██             ██    ██   ██ ██   ██ ██      ██  ██  ██      ██   ██ 
 ███████ ██      ██ ██      ███████  ██████     ██    ███████ ███████        ██    ██   ██ ██   ██  ██████ ██   ██ ███████ ██   ██ 
 `)
+//--------
+
+const inquirer = require('inquirer');
+const cTable = require('console.table');
+const mysql = require('mysql2');
+//----Test----
+const db = mysql.createConnection(
+    {
+      host: 'localhost',
+      user: 'root',
+      password: 'Password!',
+      database: 'star_wars_V_db'
+    },
+    console.log(`Connected to the star_wars_V_db database.`)
+  );
+
+function afterConnection(){
+    db.query("SELECT * FROM employees", function(err,res) {
+        if (err) throw err;
+        console.log(res);
+        db.end();
+    });
+}
+
+//----Menus----
+
 mainMenu()
 function mainMenu(){
     inquirer
@@ -20,10 +46,16 @@ function mainMenu(){
     .then((data) => {
         if (data.menu === 'View all departments') {
             console.log('No. Try not. Do... or do not. There is no try.');
+            console.table();
+            mainMenu();
         } else if (data.menu === 'View all roles') {
             console.log('I love you. - I know.');
+            console.table();
+            mainMenu();
         } else if (data.menu === 'View all employees') {
             console.log('Never tell me the odds.');
+            console.table();
+            mainMenu();
         } else if (data.menu === 'Add a department') {
             console.log("They'd be crazy to follow us, wouldn't they?");
             addDepartment();
@@ -37,6 +69,7 @@ function mainMenu(){
             console.log('Would it help if I got out and pushed?');
             updateEmployeeRole();
         } else if (data.menu === 'Exit') {
+            db.end();
             console.log(`
 
 ░██████╗░░█████╗░░█████╗░██████╗░  ██████╗░██╗░░░██╗███████╗
@@ -101,6 +134,9 @@ function addRole(){
     .then((dataRole) => {
         if (dataRole.anotherRole){
             console.log('Another Role')
+            addRole();
+        } else if (!dataRole.anotherRole){
+            mainMenu();
         }
     });
 };
@@ -133,12 +169,25 @@ function addEmployee(){
             name: 'anotherEmp'
         }
     ])
+    .then((dataEmp) => {
+        if (dataEmp.anotherEmp){
+            console.log('another Employee');
+            addEmployee();
+        } else if (!dataEmp.anotherEmp) {
+            mainMenu();
+        }
+    })
 };
 function updateEmployeeRole(){
     inquirer
     .prompt([
         {
+            type:'list',
+            message:'What would you like to update?',
+            name:'updateRole',
+            choices:['Role','Salary','Department','Main Menu']
 
         }
     ])
 };
+//--------
