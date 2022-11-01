@@ -67,7 +67,11 @@ function mainMenu(){
             });
         } else if (data.menu === 'View all employees') {
             console.log('Never tell me the odds.');
-            db.query("SELECT * FROM employees", function(err,res) {
+            db.query(`SELECT * FROM employees 
+            JOIN roles 
+            ON roles.role_id = employees.role_id
+            JOIN departments
+            ON roles.dept_id = departments.dept_id`, function(err,res) {
                 if(res){
                     console.table(res)
                   }
