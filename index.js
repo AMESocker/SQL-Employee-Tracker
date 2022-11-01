@@ -24,11 +24,11 @@ const db = mysql.createConnection(
     // afterConnection()
     
 
-// db.query("SELECT * FROM employees", function(err,res) {
+// db.query("SELECT first_name FROM employees", function(err,res) {
 //     if(res){
-//         res.forEach(function(employees){
-//         console.log(res)
-//       })
+//         const parse = JSON.parse(res);
+//         console.log(parse);
+      
 //       }
 // });
 
