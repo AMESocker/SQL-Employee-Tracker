@@ -11,7 +11,7 @@ console.log(`
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 const mysql = require('mysql2');
-//----Test----
+//----database selection----
 const db = mysql.createConnection(
     {
       host: 'localhost',
@@ -19,20 +19,23 @@ const db = mysql.createConnection(
       password: 'Password!',
       database: 'star_wars_V_db'
     },
-    console.log(`Connected to the star_wars_V_db database.`)
-  );
+    console.log(`Connected to the star_wars_V_db database.`),
+    );
+    // afterConnection()
+    
 
-function afterConnection(){
-    db.query("SELECT * FROM employees", function(err,res) {
-        if (err) throw err;
-        console.log(res);
-        db.end();
-    });
-}
+// db.query("SELECT * FROM employees", function(err,res) {
+//     if(res){
+//         res.forEach(function(employees){
+//         console.log(res)
+//       })
+//       }
+// });
+
 
 //----Menus----
-
 mainMenu()
+//----Main Menu----
 function mainMenu(){
     inquirer
     .prompt([
@@ -44,18 +47,33 @@ function mainMenu(){
         }
     ])
     .then((data) => {
+//----view data----
         if (data.menu === 'View all departments') {
             console.log('No. Try not. Do... or do not. There is no try.');
-            console.table();
-            mainMenu();
+            db.query("SELECT * FROM departments", function(err,res) {
+                if(res){
+                    console.table(res)
+                  }
+                  mainMenu();
+            });
+           
         } else if (data.menu === 'View all roles') {
             console.log('I love you. - I know.');
-            console.table();
-            mainMenu();
+            db.query("SELECT * FROM roles", function(err,res) {
+                if(res){
+                    console.table(res)
+                  }
+                  mainMenu();
+            });
         } else if (data.menu === 'View all employees') {
             console.log('Never tell me the odds.');
-            console.table();
-            mainMenu();
+            db.query("SELECT * FROM employees", function(err,res) {
+                if(res){
+                    console.table(res)
+                  }
+                  mainMenu();
+            });
+//----to add menus----
         } else if (data.menu === 'Add a department') {
             console.log("They'd be crazy to follow us, wouldn't they?");
             addDepartment();
@@ -65,6 +83,7 @@ function mainMenu(){
         } else if (data.menu === 'Add an employee') {
             console.log('You said you wanted to be around when I made a mistake, well, this could be it, sweetheart.');
             addEmployee();
+//----to update menus----
         } else if (data.menu === 'Update an employee role') {
             console.log('Would it help if I got out and pushed?');
             updateEmployeeRole();
@@ -82,7 +101,7 @@ function mainMenu(){
         }
     });
 };
-
+//----Add Menus----
 function addDepartment(){
     inquirer
     .prompt([
@@ -178,6 +197,7 @@ function addEmployee(){
         }
     })
 };
+//----Update Menus----
 function updateEmployeeRole(){
     inquirer
     .prompt([
@@ -189,5 +209,10 @@ function updateEmployeeRole(){
 
         }
     ])
+    .then((updateData) => {
+        if (updateData.updateRole === 'Role'||'Salary'||'Department'||'Main Menu') {
+            mainMenu();
+        }
+    });
 };
 //--------
