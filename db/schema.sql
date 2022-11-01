@@ -5,7 +5,7 @@ USE star_wars_V_db;
 
 CREATE TABLE departments (
     dept_name VARCHAR(30),
-    dept_id INT primary key
+    dept_id INT not null auto_increment primary key
 );
 
 CREATE TABLE roles (

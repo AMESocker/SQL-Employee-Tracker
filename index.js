@@ -117,12 +117,17 @@ function addDepartment(){
         }
     ])
     .then((dataDept) => {
-        if (dataDept.anotherDept) {
-        console.log('another Dept');
-        addDepartment();
-        } else if (!dataDept.anotherDept){
-            mainMenu();
-        }
+            const dataDeptInput = `INSERT INTO departments (dept_name) VALUES ('`;
+            db.query(dataDeptInput+dataDept.department+`');`), function(err,res) {
+            }                
+            if (dataDept.anotherDept) {
+            console.log('another Dept');
+            addDepartment();
+            } else if (!dataDept.anotherDept){
+                mainMenu();
+            }
+       
+
     });
 };
 
