@@ -213,19 +213,23 @@ function addEmployee(){
     })
 };
 //----Update Menus----
-db.query("SELECT first_name FROM employees", function(err,res){
+function updateSel(){
+    db.query("SELECT first_name FROM employees", function(err,res){
     empChoices = [];
     for(i=0;i<res.length;i++)
     empChoices.push(res[i].first_name);
     // console.log(roleChoices);
-})
-db.query("SELECT role_title FROM roles", function(err,res){
-    roleChoices = [];
-    for(i=0;i<res.length;i++)
-    roleChoices.push(res[i].role_title);
-    // console.log(roleChoices);
-})
+    })
+    db.query("SELECT role_title FROM roles", function(err,res){
+        roleChoices = [];
+        for(i=0;i<res.length;i++)
+        roleChoices.push(res[i].role_title);
+        // console.log(roleChoices);
+    })
+}
+updateSel()
 function updateEmployeeRole(){
+    updateSel()
     inquirer
     .prompt([
         {

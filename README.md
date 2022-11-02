@@ -1,5 +1,18 @@
 # SQL-Employee-Tracker
 M12C
+A node application using SQL to track employee data.
+
+## Demo of Application
+
+[Video Demo](https://app.castify.com/view/d34dbae5-82c3-4dd9-8ed7-bb4424fae145)
+
+## Required Installation
+
+[Inquirer Package](https://www.npmjs.com/package/inquirer/v/8.2.4)
+
+[MySQL2 package](https://www.npmjs.com/package/mysql2)
+
+[console.table package](https://www.npmjs.com/package/console.table)
 
 ## User Story
 
