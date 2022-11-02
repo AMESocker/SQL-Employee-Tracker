@@ -67,7 +67,8 @@ function mainMenu(){
             });
         } else if (data.menu === 'View all employees') {
             console.log('Never tell me the odds.');
-            db.query(`SELECT * FROM employees 
+            db.query(`
+            SELECT * FROM employees 
             JOIN roles 
             ON roles.role_id = employees.role_id
             JOIN departments
@@ -149,8 +150,8 @@ function addRole(){
             name:'number'
         },
         {
-            type:'input',
-            message:'Please enter a department:',
+            type:'number',
+            message:'Please enter a department Id:',
             name:'roleDepartment'
         },
         {
@@ -160,6 +161,9 @@ function addRole(){
         }
     ])
     .then((dataRole) => {
+        const dataRoleInput = `INSERT INTO roles (role_title,role_salary,dept_id) VALUES('`;
+        db.query(dataRoleInput+dataRole.role+`','`+dataRole.number+`','`+dataRole.roleDepartment+`');`), function(err,res){}
+
         if (dataRole.anotherRole){
             console.log('Another Role')
             addRole();
@@ -182,13 +186,13 @@ function addEmployee(){
             name:'empLastName'
         },
         {
-            type:'input',
-            message:'Please enter role:',
+            type:'number',
+            message:'Please enter role id:',
             name:'empRole'
         },
         {
-            type:'input',
-            message:'Please enter manager:',
+            type:'number',
+            message:'Please enter manager id:',
             name:'empManager'
         },
         {
@@ -198,6 +202,8 @@ function addEmployee(){
         }
     ])
     .then((dataEmp) => {
+        const dataEmpInput = `INSERT INTO employees (first_name,last_name,role_id,manager_id) VALUES('`;
+        db.query(dataEmpInput+dataEmp.empFirstName+`','`+dataEmp.empLastName+`','`+dataEmp.empRole+`','`+dataEmp.empManager+`');`), function(err,res){}
         if (dataEmp.anotherEmp){
             console.log('another Employee');
             addEmployee();
